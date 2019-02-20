@@ -1,0 +1,19 @@
+.header{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.headerLinks{
+	padding: 10px;
+	text-decoration: none;
+}
+
+.active{
+	background-color: #eee;
+}
+
+.displayparent{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}

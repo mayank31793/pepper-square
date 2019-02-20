@@ -1,0 +1,10 @@
+.users{
+	min-width: 200px;
+	box-shadow: 2px 1px 7px #eee;
+	padding: 10px;
+	margin: 10px 0px;
+}
+
+.users:hover{
+	box-shadow: 1px 1px 7px #a9a9a9;
+}
