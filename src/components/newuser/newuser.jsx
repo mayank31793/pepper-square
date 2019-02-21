@@ -8,7 +8,8 @@ class newuser extends Component {
 		super(props);
 		this.state = {
 			name:'',
-			nameValid:false
+			nameValid:false,
+			usersData:[]		
 		}
 		this.handle = this.handle.bind(this);
 	}	
@@ -21,30 +22,18 @@ class newuser extends Component {
 		this.setState({name:event.target.value});
 	}
 
-	push(){
-		axios.post('https://test-9515d.firebaseio.com/users.json',  {
-    "id": 3,
-    "name": "Clementine Bauch",
-    "username": "Samantha",
-    "email": "Nathan@yesenia.net",
-    "address": {
-      "street": "Douglas Extension",
-      "suite": "Suite 847",
-      "city": "McKenziehaven",
-      "zipcode": "59590-4157",
-      "geo": {
-        "lat": "-68.6102",
-        "lng": "-47.0653"
-      }
-    },
-    "phone": "1-463-123-4447",
-    "website": "ramiro.info",
-    "company": {
-      "name": "Romaguera-Jacobson",
-      "catchPhrase": "Face to face bifurcated interface",
-      "bs": "e-enable strategic applications"
-    }
-  })
+	componentDidMount(){
+		axios.get('https://test-9515d.firebaseio.com/users.json')
+			.then((res) => {
+				const fetchOrders = [];
+				for(let key in res.data){
+					fetchOrders.push({
+						...res.data[key],
+						id:key
+					});
+				}
+				this.setState({usersData:fetchOrders});
+			});
 	}
 
 	render(){
@@ -54,7 +43,8 @@ class newuser extends Component {
 				<p>New User</p>
 				<input type="text" value={this.state.name} onChange={this.handle}/>
 				<b>{this.state.name}</b>
-				<button onClick={this.push}>Push Data</button>
+				{this.state.usersData.map((x) => <div><p>{x.name}</p></div>)}
+				
 			</div>
 		);
 	}

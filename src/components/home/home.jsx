@@ -16,27 +16,27 @@ class home extends Component{
 	}	
 
 	componentDidMount(){
-		axios.get('https://jsonplaceholder.typicode.com/users')
-			.then((res) => this.setState({usersData:res.data}))
-
 		axios.get('https://test-9515d.firebaseio.com/users.json')
-			.then((res) => this.setState({test:res.data}))	
+			.then((res) => {
+				const fetchOrders = [];
+				for(let key in res.data){
+					fetchOrders.push({
+						...res.data[key],
+						id:key
+					});
+				}
+				this.setState({usersData:fetchOrders});
+			});	
 	}
 
 	render(){
-		console.log(Object.keys(this.state.test));
-		// console.log(this.props.match);
+		console.log(Object.keys(this.state.usersData));
 		return(
 			<div className="home">
-				{this.state.usersData.map((res,i) => <Link to={"/"+res.id}  key={i}>
-					<Users id={res.id} name={res.name} className="users" />
-				</Link>)}
-				{Object.keys(this.state.test).map((res) => {
-					axios.get('https://test-9515d.firebaseio.com/users/'+res+'.json')
-						.then((res) => <p>{res.username}</p>)
-					// this.state.test[res].username
-				})}
 				
+				{this.state.usersData.map((res,i) => <Link to={"/"+res.id}  key={i}>
+					<Users name={res.name} className="users" />
+				</Link>)}
 			</div>
 		);
 	}

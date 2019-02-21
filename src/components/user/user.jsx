@@ -10,12 +10,14 @@ class user extends Component {
 	}	
 
 	componentDidMount(){
-		axios.get('https://jsonplaceholder.typicode.com/users/'+this.props.match.params.id)
+		axios.get('https://test-9515d.firebaseio.com/users/'+this.props.match.params.id+'.json')
 			.then((res) => this.setState({userData:res.data}))
+			// .then((res) => console.log(res.data))				
 	}
 
 	render(){
-		console.log(this.state.userData);
+		// console.log(this.state.userData);
+		console.log(this.props.match.params.id);
 		return(
 			<div>
 				<p>{this.state.userData.name}</p>
